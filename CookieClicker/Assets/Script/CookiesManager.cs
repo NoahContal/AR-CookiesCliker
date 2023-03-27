@@ -1,9 +1,13 @@
+using System;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class CookiesManager : MonoBehaviour
 {
+    [SerializeField] private GameObject cookieGameObject;
+    
     public int cookies = 0;
     public int cookiesPerTouch = 1;
     public float cookiesPerSecond = 1;
@@ -19,16 +23,7 @@ public class CookiesManager : MonoBehaviour
         cookies += passiveCookiesPerSecond;
     }
 
-    private IEnumerator CookieLoop()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(1/cookiesPerSecond);
-            SpawnCookie();
-        }
-    }
-    
-    private void SpawnCookie()
+    private void Update()
     {
         
     }
