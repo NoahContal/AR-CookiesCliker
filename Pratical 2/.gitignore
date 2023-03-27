@@ -10,6 +10,7 @@
 /[Uu]serSettings/
 Builds.x86_64
 Builds_Data/
+Builds_BackUpThisFolder_ButDontShipItWithYourGame/
 .idea/
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
