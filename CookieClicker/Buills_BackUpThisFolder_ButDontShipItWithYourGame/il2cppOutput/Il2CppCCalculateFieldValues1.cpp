@@ -628,6 +628,8 @@ struct ExecuteInEditModeU5BU5D_t57196F1483600AD3B95D1452158E1E10864B12A2;
 struct FontWeightPairU5BU5D_t76E8DB55C81EEBEFA2E6D1D3E3B3EA1FB4C4954F;
 // UnityEngine.GUIStyle[]
 struct GUIStyleU5BU5D_t1BA4BCF4D4D32DF07E9B84F1750D964DF33B0FEC;
+// UnityEngine.GameObject[]
+struct GameObjectU5BU5D_tFF67550DFCE87096D7A3734EA15B75896B2722CF;
 // UnityEngine.TextCore.Glyph[]
 struct GlyphU5BU5D_t345CEC8703A6C650639C40DB7D35269A2D467FC5;
 // UnityEngine.TextCore.LowLevel.GlyphMarshallingStruct[]
@@ -3577,17 +3579,6 @@ struct U3COnFinishSubmitU3Ed__9_t55620C8613B09E9D27E197A064B9C249B6F13164  : pub
 	float ___U3CfadeTimeU3E5__2_3;
 	// System.Single UnityEngine.UI.Button/<OnFinishSubmit>d__9::<elapsedTime>5__3
 	float ___U3CelapsedTimeU3E5__3_4;
-};
-
-// CookiesManager/<CookieLoop>d__6
-struct U3CCookieLoopU3Ed__6_tCF575662C0FDFC90F82FB0BD41A170587D00CB68  : public RuntimeObject
-{
-	// System.Int32 CookiesManager/<CookieLoop>d__6::<>1__state
-	int32_t ___U3CU3E1__state_0;
-	// System.Object CookiesManager/<CookieLoop>d__6::<>2__current
-	RuntimeObject* ___U3CU3E2__current_1;
-	// CookiesManager CookiesManager/<CookieLoop>d__6::<>4__this
-	CookiesManager_t3A91154EE1EC6C4659C52001924D00286DEFCE00* ___U3CU3E4__this_2;
 };
 
 // UnityEngine.UI.DefaultControls/DefaultRuntimeFactory
@@ -17854,6 +17845,19 @@ struct Benchmark04_t10F8FE01330047EC5B83FE59EE23381CD2BE2F01  : public MonoBehav
 	Transform_tB27202C6F4E36D225EE28A13E4D662BF99785DB1* ___m_Transform_8;
 };
 
+// BuyButton
+struct BuyButton_tDF68CED1ADB05BAAFF4A1DB9C0B964C1AFDE2E81  : public MonoBehaviour_t532A11E69716D348D8AA7F854AFCBFCB8AD17F71
+{
+	// CookiesManager BuyButton::cookiesManager
+	CookiesManager_t3A91154EE1EC6C4659C52001924D00286DEFCE00* ___cookiesManager_4;
+	// System.Int32 BuyButton::price
+	int32_t ___price_5;
+	// System.Boolean BuyButton::_isAffordable
+	bool ____isAffordable_6;
+	// UnityEngine.UI.Button BuyButton::_button
+	Button_t6786514A57F7AFDEE5431112FEA0CAB24F5AE098* ____button_7;
+};
+
 // TMPro.Examples.CameraController
 struct CameraController_t7E0AA7DC0B482A31CC3D60F6032912FE8B581DA8  : public MonoBehaviour_t532A11E69716D348D8AA7F854AFCBFCB8AD17F71
 {
@@ -17919,14 +17923,22 @@ struct ChatController_t21BE953E1D5ADF0BA9F3B03C205203CADDC64C15  : public MonoBe
 // CookiesManager
 struct CookiesManager_t3A91154EE1EC6C4659C52001924D00286DEFCE00  : public MonoBehaviour_t532A11E69716D348D8AA7F854AFCBFCB8AD17F71
 {
+	// UnityEngine.GameObject CookiesManager::_cookieGameObject
+	GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* ____cookieGameObject_4;
 	// System.Int32 CookiesManager::cookies
-	int32_t ___cookies_4;
+	int32_t ___cookies_5;
 	// System.Int32 CookiesManager::cookiesPerTouch
-	int32_t ___cookiesPerTouch_5;
-	// System.Single CookiesManager::cookiesPerSecond
-	float ___cookiesPerSecond_6;
-	// System.Int32 CookiesManager::passiveCookiesPerSecond
-	int32_t ___passiveCookiesPerSecond_7;
+	int32_t ___cookiesPerTouch_6;
+	// System.Int32 CookiesManager::cookiesPerSecond
+	int32_t ___cookiesPerSecond_7;
+	// UnityEngine.GameObject[] CookiesManager::objectsToSpawn
+	GameObjectU5BU5D_tFF67550DFCE87096D7A3734EA15B75896B2722CF* ___objectsToSpawn_8;
+	// UnityEngine.XR.ARFoundation.ARRaycastManager CookiesManager::arRaycastManager
+	ARRaycastManager_tD9459374F0F5BD9E2E4A8A1C665E7F33F9C2EE44* ___arRaycastManager_9;
+	// System.Single CookiesManager::spawnDelay
+	float ___spawnDelay_10;
+	// System.Single CookiesManager::spawnTimer
+	float ___spawnTimer_11;
 };
 
 // DropdownSample
@@ -18363,8 +18375,8 @@ struct UiManager_tD893C8D36318160D6F63738C3B33FE3C22D9688F  : public MonoBehavio
 	TextMeshProUGUI_t101091AF4B578BB534C92E9D1EEAF0611636D957* ___textCookieRate_5;
 	// TMPro.TextMeshProUGUI UiManager::textPassiveCookie
 	TextMeshProUGUI_t101091AF4B578BB534C92E9D1EEAF0611636D957* ___textPassiveCookie_6;
-	// TMPro.TextMeshProUGUI UiManager::Cookies
-	TextMeshProUGUI_t101091AF4B578BB534C92E9D1EEAF0611636D957* ___Cookies_7;
+	// TMPro.TextMeshProUGUI UiManager::cookieAmountDisplay
+	TextMeshProUGUI_t101091AF4B578BB534C92E9D1EEAF0611636D957* ___cookieAmountDisplay_7;
 	// CookiesManager UiManager::_cookiesManager
 	CookiesManager_t3A91154EE1EC6C4659C52001924D00286DEFCE00* ____cookiesManager_8;
 };
@@ -22799,15 +22811,15 @@ IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4316[6] =
 IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4317[6] = 
 {
 	static_cast<int32_t>(offsetof(AnchorCreator_tBBEE94135B5183E0A8EE52FB00513F69C7C980ED, ___m_AnchorPrefab_4)),static_cast<int32_t>(offsetof(AnchorCreator_tBBEE94135B5183E0A8EE52FB00513F69C7C980ED_StaticFields, ___s_Hits_5)),static_cast<int32_t>(offsetof(AnchorCreator_tBBEE94135B5183E0A8EE52FB00513F69C7C980ED, ___m_AnchorPoints_6)),static_cast<int32_t>(offsetof(AnchorCreator_tBBEE94135B5183E0A8EE52FB00513F69C7C980ED, ___m_RaycastManager_7)),static_cast<int32_t>(offsetof(AnchorCreator_tBBEE94135B5183E0A8EE52FB00513F69C7C980ED, ___m_AnchorManager_8)),static_cast<int32_t>(offsetof(AnchorCreator_tBBEE94135B5183E0A8EE52FB00513F69C7C980ED, ___m_PlaneManager_9)),};
-IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4318[3] = 
+IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4318[4] = 
 {
-	static_cast<int32_t>(offsetof(U3CCookieLoopU3Ed__6_tCF575662C0FDFC90F82FB0BD41A170587D00CB68, ___U3CU3E1__state_0)),static_cast<int32_t>(offsetof(U3CCookieLoopU3Ed__6_tCF575662C0FDFC90F82FB0BD41A170587D00CB68, ___U3CU3E2__current_1)),static_cast<int32_t>(offsetof(U3CCookieLoopU3Ed__6_tCF575662C0FDFC90F82FB0BD41A170587D00CB68, ___U3CU3E4__this_2)),};
-IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4319[4] = 
+	static_cast<int32_t>(offsetof(BuyButton_tDF68CED1ADB05BAAFF4A1DB9C0B964C1AFDE2E81, ___cookiesManager_4)),static_cast<int32_t>(offsetof(BuyButton_tDF68CED1ADB05BAAFF4A1DB9C0B964C1AFDE2E81, ___price_5)),static_cast<int32_t>(offsetof(BuyButton_tDF68CED1ADB05BAAFF4A1DB9C0B964C1AFDE2E81, ____isAffordable_6)),static_cast<int32_t>(offsetof(BuyButton_tDF68CED1ADB05BAAFF4A1DB9C0B964C1AFDE2E81, ____button_7)),};
+IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4319[8] = 
 {
-	static_cast<int32_t>(offsetof(CookiesManager_t3A91154EE1EC6C4659C52001924D00286DEFCE00, ___cookies_4)),static_cast<int32_t>(offsetof(CookiesManager_t3A91154EE1EC6C4659C52001924D00286DEFCE00, ___cookiesPerTouch_5)),static_cast<int32_t>(offsetof(CookiesManager_t3A91154EE1EC6C4659C52001924D00286DEFCE00, ___cookiesPerSecond_6)),static_cast<int32_t>(offsetof(CookiesManager_t3A91154EE1EC6C4659C52001924D00286DEFCE00, ___passiveCookiesPerSecond_7)),};
+	static_cast<int32_t>(offsetof(CookiesManager_t3A91154EE1EC6C4659C52001924D00286DEFCE00, ____cookieGameObject_4)),static_cast<int32_t>(offsetof(CookiesManager_t3A91154EE1EC6C4659C52001924D00286DEFCE00, ___cookies_5)),static_cast<int32_t>(offsetof(CookiesManager_t3A91154EE1EC6C4659C52001924D00286DEFCE00, ___cookiesPerTouch_6)),static_cast<int32_t>(offsetof(CookiesManager_t3A91154EE1EC6C4659C52001924D00286DEFCE00, ___cookiesPerSecond_7)),static_cast<int32_t>(offsetof(CookiesManager_t3A91154EE1EC6C4659C52001924D00286DEFCE00, ___objectsToSpawn_8)),static_cast<int32_t>(offsetof(CookiesManager_t3A91154EE1EC6C4659C52001924D00286DEFCE00, ___arRaycastManager_9)),static_cast<int32_t>(offsetof(CookiesManager_t3A91154EE1EC6C4659C52001924D00286DEFCE00, ___spawnDelay_10)),static_cast<int32_t>(offsetof(CookiesManager_t3A91154EE1EC6C4659C52001924D00286DEFCE00, ___spawnTimer_11)),};
 IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4320[5] = 
 {
-	static_cast<int32_t>(offsetof(UiManager_tD893C8D36318160D6F63738C3B33FE3C22D9688F, ___textCookiePerClick_4)),static_cast<int32_t>(offsetof(UiManager_tD893C8D36318160D6F63738C3B33FE3C22D9688F, ___textCookieRate_5)),static_cast<int32_t>(offsetof(UiManager_tD893C8D36318160D6F63738C3B33FE3C22D9688F, ___textPassiveCookie_6)),static_cast<int32_t>(offsetof(UiManager_tD893C8D36318160D6F63738C3B33FE3C22D9688F, ___Cookies_7)),static_cast<int32_t>(offsetof(UiManager_tD893C8D36318160D6F63738C3B33FE3C22D9688F, ____cookiesManager_8)),};
+	static_cast<int32_t>(offsetof(UiManager_tD893C8D36318160D6F63738C3B33FE3C22D9688F, ___textCookiePerClick_4)),static_cast<int32_t>(offsetof(UiManager_tD893C8D36318160D6F63738C3B33FE3C22D9688F, ___textCookieRate_5)),static_cast<int32_t>(offsetof(UiManager_tD893C8D36318160D6F63738C3B33FE3C22D9688F, ___textPassiveCookie_6)),static_cast<int32_t>(offsetof(UiManager_tD893C8D36318160D6F63738C3B33FE3C22D9688F, ___cookieAmountDisplay_7)),static_cast<int32_t>(offsetof(UiManager_tD893C8D36318160D6F63738C3B33FE3C22D9688F, ____cookiesManager_8)),};
 IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4321[3] = 
 {
 	static_cast<int32_t>(offsetof(ChatController_t21BE953E1D5ADF0BA9F3B03C205203CADDC64C15, ___ChatInputField_4)),static_cast<int32_t>(offsetof(ChatController_t21BE953E1D5ADF0BA9F3B03C205203CADDC64C15, ___ChatDisplayOutput_5)),static_cast<int32_t>(offsetof(ChatController_t21BE953E1D5ADF0BA9F3B03C205203CADDC64C15, ___ChatScrollbar_6)),};
