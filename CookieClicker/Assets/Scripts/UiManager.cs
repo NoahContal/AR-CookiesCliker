@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using TMPro;
 
@@ -6,10 +7,15 @@ public class UiManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI textCookiePerClick;
     [SerializeField] private TextMeshProUGUI textCookieRate;
     [SerializeField] private TextMeshProUGUI textPassiveCookie;
-    [SerializeField] private TextMeshProUGUI Cookies;
+    public TextMeshProUGUI cookieAmountDisplay;
 
     private CookiesManager _cookiesManager;
-    
+
+    private void Start()
+    {
+        _cookiesManager = GetComponent<CookiesManager>();
+    }
+
     public void CookiePerTouch()
     {
         string text = textCookiePerClick.text;
@@ -40,23 +46,8 @@ public class UiManager : MonoBehaviour
         }
     }
 
-    public void PassiveCookie()
-    {
-        string text = textPassiveCookie.text;
-        int price = int.Parse(text);
-        if (_cookiesManager.cookies - price >= 0)
-        {
-            _cookiesManager.cookies -= price;
-            
-            price += 3;
-            textPassiveCookie.text = price + "";
-            
-            _cookiesManager.passiveCookiesPerSecond++;
-        }
-    }
-
     private void Update()
     {
-        Cookies.text = _cookiesManager.cookies + "";
+        cookieAmountDisplay.text = _cookiesManager.cookies + "";
     }
 }
