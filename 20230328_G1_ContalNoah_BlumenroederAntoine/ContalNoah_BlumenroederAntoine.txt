@@ -1,0 +1,2 @@
+Cette application s'inspire du célèbe jeu web : Cookie Clicker où le but est simplement de cliquer sur un cookie et acheter des éléments pour que les clicks donnent plus de cookie. Nous avons revisité ce jeu pour implémenter une version améliorée en AR.
+Le but du jeu est d'atteindre une certaine quantité de cookies. Pour en obtenir, on clique sur des cookies qui apparaîssent autour de la caméra du joueur. Pour aller plus vite, on peut acheter des améliorations qui se placent dans notre environnement sur les plans géré par AR Core.
