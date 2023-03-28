@@ -1152,6 +1152,7 @@ GameObject:
   - component: {fileID: 1354141929}
   - component: {fileID: 1354141928}
   - component: {fileID: 1354141927}
+  - component: {fileID: 1354141931}
   m_Layer: 0
   m_Name: AR Camera
   m_TagString: Untagged
@@ -1266,6 +1267,24 @@ Transform:
   m_Father: {fileID: 1659859599}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1354141931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1354141925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: decbd213a263e3c59b58c0becea925ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cookies: 0
+  cookiesPerTouch: 1
+  cookiesPerSecond: 1
+  objectsToSpawn: {fileID: 4424981425090949270, guid: 28995e05027d1784290d352ee9f0f8ca,
+    type: 3}
+  spawnRaange: {x: 2, y: 2, z: 2}
 --- !u!1 &1368874960
 GameObject:
   m_ObjectHideFlags: 0
@@ -1385,7 +1404,7 @@ MonoBehaviour:
   textCookiePerClick: {fileID: 0}
   textCookieRate: {fileID: 0}
   textPassiveCookie: {fileID: 0}
-  cookieAmountDisplay: {fileID: 0}
+  cookieAmountDisplay: {fileID: 1435971378}
 --- !u!114 &1368874966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1401,9 +1420,8 @@ MonoBehaviour:
   cookies: 0
   cookiesPerTouch: 1
   cookiesPerSecond: 1
-  objectsToSpawn: []
-  arRaycastManager: {fileID: 0}
-  spawnDelay: 2
+  objectsToSpawn: {fileID: 0}
+  spawnRaange: {x: 0, y: 0, z: 0}
 --- !u!1 &1435971376
 GameObject:
   m_ObjectHideFlags: 0
@@ -1766,7 +1784,6 @@ GameObject:
   - component: {fileID: 1659859598}
   - component: {fileID: 1659859600}
   - component: {fileID: 1659859601}
-  - component: {fileID: 1659859602}
   m_Layer: 0
   m_Name: AR Session Origin
   m_TagString: Untagged
@@ -1832,25 +1849,6 @@ MonoBehaviour:
   m_PlanePrefab: {fileID: 2334373911820968481, guid: 36361b1112d3edd66a4b0ec7a92e0d63,
     type: 3}
   m_DetectionMode: -1
---- !u!114 &1659859602
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1659859597}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: decbd213a263e3c59b58c0becea925ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cookies: 0
-  cookiesPerTouch: 1
-  cookiesPerSecond: 1
-  objectsToSpawn:
-  - {fileID: 4424981425090949270, guid: 28995e05027d1784290d352ee9f0f8ca, type: 3}
-  arRaycastManager: {fileID: 1659859600}
-  spawnDelay: 2
 --- !u!1 &1775363096 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7005616562631222183, guid: b4e26499a1306314980c5f2954984f94,
@@ -2164,72 +2162,3 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b4e26499a1306314980c5f2954984f94, type: 3}
---- !u!1001 &3959241822619031268
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3326076464819880493, guid: 28995e05027d1784290d352ee9f0f8ca,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3326076464819880493, guid: 28995e05027d1784290d352ee9f0f8ca,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 334.96313
-      objectReference: {fileID: 0}
-    - target: {fileID: 3326076464819880493, guid: 28995e05027d1784290d352ee9f0f8ca,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1277.5447
-      objectReference: {fileID: 0}
-    - target: {fileID: 3326076464819880493, guid: 28995e05027d1784290d352ee9f0f8ca,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -5.214502
-      objectReference: {fileID: 0}
-    - target: {fileID: 3326076464819880493, guid: 28995e05027d1784290d352ee9f0f8ca,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3326076464819880493, guid: 28995e05027d1784290d352ee9f0f8ca,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3326076464819880493, guid: 28995e05027d1784290d352ee9f0f8ca,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3326076464819880493, guid: 28995e05027d1784290d352ee9f0f8ca,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3326076464819880493, guid: 28995e05027d1784290d352ee9f0f8ca,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3326076464819880493, guid: 28995e05027d1784290d352ee9f0f8ca,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3326076464819880493, guid: 28995e05027d1784290d352ee9f0f8ca,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4424981425090949270, guid: 28995e05027d1784290d352ee9f0f8ca,
-        type: 3}
-      propertyPath: m_Name
-      value: Cookies
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 28995e05027d1784290d352ee9f0f8ca, type: 3}
