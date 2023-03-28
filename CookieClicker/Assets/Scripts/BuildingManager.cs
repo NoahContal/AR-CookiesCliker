@@ -51,7 +51,7 @@ public class BuildingManager : MonoBehaviour
     public GameObject placeButton;
     public GameObject cancelButton;
     
-    private bool _isPlacing;
+    private bool _isPlacing = false;
     private Building _buildingToPlaceInfo;
     private GameObject _buildingToPlace;
     public Transform buildingParent;
