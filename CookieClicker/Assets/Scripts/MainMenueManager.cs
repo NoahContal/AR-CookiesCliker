@@ -5,6 +5,7 @@ public class MainMenueManager : MonoBehaviour
 {
     public void Play()
     {
+        Debug.Log("miam");
         SceneManager.LoadScene("CookieClicker");
     }
 }
