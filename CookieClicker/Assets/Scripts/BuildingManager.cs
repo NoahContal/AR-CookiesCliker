@@ -16,6 +16,7 @@ public class Building
     public int CookiesPerSecond;
 
     public string Name;
+    public BuyButton Button;
     public TextMeshProUGUI ButtonText;
     
     public Building(GameObject model, int basePrice, int cookiePerTouch, int cookiePerSecond)
@@ -30,6 +31,7 @@ public class Building
     public void Upgrade()
     {
         ActualPrice = (int)(ActualPrice * 1.2f);
+        Button.price = ActualPrice;
         Display();
     }
     
@@ -78,6 +80,7 @@ public class BuildingManager : MonoBehaviour
         foreach (var key in _buildings.Keys)
         {
             var button = GameObject.Find(key);
+            _buildings[key].Button = button.GetComponent<BuyButton>();
             _buildings[key].ButtonText = button.GetComponentInChildren<TextMeshProUGUI>();
             button.GetComponent<Button>().onClick.AddListener(() => StartBuildingPlacing(key));
             _buildings[key].Name = key;
