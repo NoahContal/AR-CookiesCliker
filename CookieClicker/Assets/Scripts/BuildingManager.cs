@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Net.Mime;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 
@@ -11,25 +13,26 @@ public class Building
     public Quaternion Rotation;
     public int BasePrice;
     public int ActualPrice;
-    public int CookiePerTouch;
-    public float CookiePerSecond;
+    public int CookiesPerTouch;
+    public int CookiesPerSecond;
 
     public string Name;
     public TextMeshProUGUI ButtonText;
     
-    public Building(GameObject model, int basePrice, int cookiePerTouch, float cookiePerSecond, Quaternion rotation)
+    public Building(GameObject model, int basePrice, int cookiePerTouch, int cookiePerSecond, Quaternion rotation)
     {
         Model = model;
         BasePrice = basePrice;
         ActualPrice = basePrice;
-        CookiePerTouch = cookiePerTouch;
-        CookiePerSecond = cookiePerSecond;
+        CookiesPerTouch = cookiePerTouch;
+        CookiesPerSecond = cookiePerSecond;
         Rotation = rotation;
     }
     
     public void Upgrade()
     {
         ActualPrice = (int)(ActualPrice * 1.2f);
+        Display();
     }
     
     public void Display()
@@ -51,6 +54,7 @@ public class BuildingManager : MonoBehaviour
     public GameObject cancelButton;
     
     private bool _isPlacing;
+    private Building _buildingToPlaceInfo;
     private GameObject _buildingToPlace;
     public Transform buildingParent;
     
@@ -59,23 +63,25 @@ public class BuildingManager : MonoBehaviour
         _buildings = new Dictionary<string, Building>();
         _buildings.Add("Milk", new Building(
             Resources.Load<GameObject>("3D Models/Milk/MilkFBX"),
-            10, 1, 0.1f, new Quaternion(-90f, 0, 0, 0)));
+            10, 1, 1, new Quaternion(-90f, 0, 0, 0)));
         _buildings.Add("Blender", new Building(
             Resources.Load<GameObject>("3D Models/Blender/Mixer"),
-            100, 10, 0.5f, new Quaternion()));
+            100, 10, 2, new Quaternion()));
         _buildings.Add("Oven", new Building(
             Resources.Load<GameObject>("3D Models/Oven/Stove"),
-            1000, 200, 1f, new Quaternion()));
+            1000, 200, 3, new Quaternion()));
         _buildings.Add("Farm", new Building(
             Resources.Load<GameObject>("3D Models/Farm/Farm"),
-            25000, 5000, 3f, new Quaternion()));
+            25000, 5000, 5, new Quaternion()));
         _buildings.Add("Factory", new Building(
             Resources.Load<GameObject>("3D Models/Factory/Factory"),
-            500000, 25000, 10f, new Quaternion()));
+            500000, 25000, 10, new Quaternion()));
         _cookiesManager = FindObjectOfType<CookiesManager>();
         foreach (var key in _buildings.Keys)
         {
-            _buildings[key].ButtonText = GameObject.Find(key).GetComponentInChildren<TextMeshProUGUI>();
+            var button = GameObject.Find(key);
+            _buildings[key].ButtonText = button.GetComponentInChildren<TextMeshProUGUI>();
+            button.GetComponent<Button>().onClick.AddListener(() => StartBuildingPlacing(key));
             _buildings[key].Name = key;
             _buildings[key].Display();
         }
@@ -89,10 +95,12 @@ public class BuildingManager : MonoBehaviour
         placeButton.SetActive(_isPlacing);
         cancelButton.SetActive(_isPlacing);
     }
-    
-    public void StartBuildingPlacing(string buildingName)
+
+    private void StartBuildingPlacing(string buildingName)
     {
+        if (_isPlacing) return;
         var building = _buildings[buildingName];
+        _buildingToPlaceInfo = building;
         _isPlacing = true;
         UpdateUI();
         _buildingToPlace = Instantiate(building.Model, Vector3.zero, building.Rotation, buildingParent);
@@ -103,5 +111,28 @@ public class BuildingManager : MonoBehaviour
         _isPlacing = false;
         UpdateUI();
         Destroy(_buildingToPlace);
+    }
+    
+    public void PlaceBuilding()
+    {
+        _isPlacing = false;
+        UpdateUI();
+        var building = _buildingToPlaceInfo;
+        _cookiesManager.cookies -= building.ActualPrice;
+        _cookiesManager.cookiesPerSecond += building.CookiesPerSecond;
+        _cookiesManager.cookiesPerTouch += building.CookiesPerTouch;
+        building.Upgrade();
+        _buildingToPlace = null;
+    }
+
+    private void Update()
+    {
+        if (!_isPlacing) return;
+        var screenCenter = Camera.current.ViewportToScreenPoint(new Vector3(0.5f, 0.5f));
+        var hits = new List<ARRaycastHit>();
+        raycastManager.Raycast(screenCenter, hits, trackableType);
+        if (hits.Count <= 0) return;
+        var hitPose = hits[0].pose;
+        _buildingToPlace.transform.position = hitPose.position;
     }
 }
