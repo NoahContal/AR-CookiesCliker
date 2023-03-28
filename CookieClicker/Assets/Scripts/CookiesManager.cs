@@ -1,12 +1,10 @@
-using System.Collections;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class CookiesManager : MonoBehaviour
 {
     private GameObject _cookieGameObject;
     
-    public int cookies = 500000;
+    public int cookies = 0;
     public int cookiesPerTouch = 1;
     public int cookiesPerSecond = 1;
     
@@ -18,7 +16,7 @@ public class CookiesManager : MonoBehaviour
     private void Start()
     {
         InvokeRepeating(nameof(AddCookies), 1, 1);
-        StartCoroutine(nameof(SpawnObject));
+        InvokeRepeating(nameof(SpawnObject), 1, 1);
     }
     
     private void AddCookies()
@@ -26,21 +24,16 @@ public class CookiesManager : MonoBehaviour
         cookies += cookiesPerSecond;
     }
     
-    private IEnumerator SpawnObject()
+    private void SpawnObject()
     {
-        while (true)
-        {
-            if (cookieCount < 30)
-            {
-                var position = new Vector3(
-                    Random.Range(-spawnRange.x, spawnRange.x),
-                    Random.Range(-spawnRange.y, spawnRange.y),
-                    Random.Range(-spawnRange.z, spawnRange.z));
-                var rotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
-                var spawnedObject = Instantiate(objectsToSpawn, position, rotation, cookieParent.transform);
-                cookieCount++;
-            }
-            yield return new WaitForSeconds(1/cookiesPerSecond);
-        }
+        if (cookieCount >= 10) return;
+        var position = new Vector3(
+            Random.Range(-spawnRange.x, spawnRange.x),
+            Random.Range(-spawnRange.y, spawnRange.y),
+            Random.Range(-spawnRange.z, spawnRange.z));
+        if (Camera.main != null) position += Camera.main.transform.position;
+        var rotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
+        Instantiate(objectsToSpawn, position, rotation, cookieParent.transform);
+        cookieCount++;
     }
 }

@@ -51,13 +51,15 @@ public class BuildingManager : MonoBehaviour
     
     public GameObject cursor;
     public GameObject placeButton;
+    private Button _placeButton;
     public GameObject cancelButton;
+    public GameObject noPlaneText;
     
     private bool _isPlacing = false;
     private Building _buildingToPlaceInfo;
     private GameObject _buildingToPlace;
     public Transform buildingParent;
-    
+
     private void Start()
     {
         _buildings = new Dictionary<string, Building>();
@@ -66,16 +68,16 @@ public class BuildingManager : MonoBehaviour
             10, 1, 1));
         _buildings.Add("Blender", new Building(
             Resources.Load<GameObject>("3D Models/Blender/Mixer"),
-            100, 10, 2));
+            100, 10, 5));
         _buildings.Add("Oven", new Building(
             Resources.Load<GameObject>("3D Models/Oven/Stove"),
-            1000, 200, 3));
+            1000, 200, 20));
         _buildings.Add("Farm", new Building(
             Resources.Load<GameObject>("3D Models/Farm/Farm"),
-            25000, 5000, 5));
+            25000, 5000, 100));
         _buildings.Add("Factory", new Building(
             Resources.Load<GameObject>("3D Models/Factory/Factory"),
-            500000, 25000, 10));
+            500000, 25000, 1000));
         _cookiesManager = FindObjectOfType<CookiesManager>();
         foreach (var key in _buildings.Keys)
         {
@@ -87,7 +89,7 @@ public class BuildingManager : MonoBehaviour
             _buildings[key].Name = key;
             _buildings[key].Display();
         }
-        
+        _placeButton = placeButton.GetComponent<Button>();
         UpdateUI();
     }
     
@@ -127,14 +129,25 @@ public class BuildingManager : MonoBehaviour
         _buildingToPlace = null;
     }
 
+    private readonly List<ARRaycastHit> _hits = new();
     private void Update()
     {
         if (!_isPlacing) return;
         var screenCenter = Camera.current.ViewportToScreenPoint(new Vector3(0.5f, 0.5f));
-        var hits = new List<ARRaycastHit>();
-        raycastManager.Raycast(screenCenter, hits, trackableType);
-        if (hits.Count <= 0) return;
-        var hitPose = hits[0].pose;
-        _buildingToPlace.transform.position = hitPose.position;
+        
+        if (raycastManager.Raycast(screenCenter, _hits, trackableType))
+        {
+            var hitPose = _hits[0].pose;
+            _buildingToPlace.transform.position = hitPose.position;
+            _placeButton.interactable = true;
+            if (noPlaneText.activeSelf)
+                noPlaneText.SetActive(false);
+        }
+        else
+        {
+            _placeButton.interactable = false;
+            if (!noPlaneText.activeSelf)
+                noPlaneText.SetActive(true);
+        }
     }
 }
