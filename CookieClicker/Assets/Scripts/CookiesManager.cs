@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class CookiesManager : MonoBehaviour
 {
@@ -9,9 +10,13 @@ public class CookiesManager : MonoBehaviour
     public int cookiesPerTouch = 1;
     public int cookiesPerSecond = 1;
     
+    [SerializeField] private GameObject cookieParent;
+    [SerializeField] private GameObject objectsToSpawn;
+    [SerializeField] private Vector3 spawnRange = new Vector3 (1,1,1);
+    public int cookieCount = 0;
+
     private void Start()
     {
-        InvokeRepeating(nameof(AddCookies), 1, 1);
         StartCoroutine(nameof(SpawnObject));
     }
     
@@ -20,18 +25,22 @@ public class CookiesManager : MonoBehaviour
         cookies += cookiesPerSecond;
     }
     
-    [SerializeField] private GameObject objectsToSpawn;
-    [SerializeField] private Vector3 spawnRaange;
-    
     private IEnumerator SpawnObject()
     {
-        var position = new Vector3(
-            Random.Range(-spawnRaange.x, spawnRaange.x), 
-            Random.Range(-spawnRaange.y, spawnRaange.y), 
-            Random.Range(-spawnRaange.z, spawnRaange.z));
-        var rotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
-        var spawnedObject = Instantiate(objectsToSpawn, position, rotation);
-        spawnedObject.transform.parent = transform;
-        yield return new WaitForSeconds(1/cookiesPerSecond);
+        while (true)
+        {
+            if (cookieCount < 30)
+            {
+                var position = new Vector3(
+                    Random.Range(-spawnRange.x, spawnRange.x),
+                    Random.Range(-spawnRange.y, spawnRange.y),
+                    Random.Range(-spawnRange.z, spawnRange.z));
+                Debug.Log(position);
+                var rotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
+                var spawnedObject = Instantiate(objectsToSpawn, position, rotation, cookieParent.transform);
+                cookieCount++;
+            }
+            yield return new WaitForSeconds(1/cookiesPerSecond);
+        }
     }
 }
