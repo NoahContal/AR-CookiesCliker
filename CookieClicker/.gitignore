@@ -8,10 +8,9 @@
 /[Ll]ogs/
 /[Mm]emoryCaptures/
 /[Uu]serSettings/
-Builds.x86_64
-Builds_Data/
-Builds_BackUpThisFolder_ButDontShipItWithYourGame/
 .idea/
+/[Bb]uills_BackUpThisFolder_ButDontShipItWithYourGame/
+InitCodeMarker
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
@@ -54,10 +53,6 @@ ExportedObj/
 
 # Unity3D generated file on crash reports
 sysinfo.txt
-
-# Builds
-*.apk
-*.unitypackage
 
 # Crashlytics generated file
 crashlytics-build.properties
