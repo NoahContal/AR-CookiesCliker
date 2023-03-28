@@ -32,7 +32,7 @@ public class CookieKiller : MonoBehaviour
                 Destroy(hitObject);
                 cookiesManager.cookieCount--;
                 cookiesManager.cookies += cookiesManager.cookiesPerTouch;
-                Destroy(clone, 1.0f);
+                Destroy(clone, 1/cookiesManager.cookiesPerSecond);
             }
         }
     }
