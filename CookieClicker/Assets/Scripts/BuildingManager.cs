@@ -79,6 +79,7 @@ public class BuildingManager : MonoBehaviour
         _cookiesManager = FindObjectOfType<CookiesManager>();
         foreach (var key in _buildings.Keys)
         {
+            Debug.Log(key);
             var button = GameObject.Find(key);
             _buildings[key].Button = button.GetComponent<BuyButton>();
             _buildings[key].ButtonText = button.GetComponentInChildren<TextMeshProUGUI>();
