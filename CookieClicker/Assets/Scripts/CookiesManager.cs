@@ -6,7 +6,7 @@ public class CookiesManager : MonoBehaviour
 {
     private GameObject _cookieGameObject;
     
-    public int cookies = 0;
+    public int cookies = 500000;
     public int cookiesPerTouch = 1;
     public int cookiesPerSecond = 1;
     

@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UiManager : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class UiManager : MonoBehaviour
     public TextMeshProUGUI cookieAmountDisplay;
 
     private CookiesManager _cookiesManager;
+    
+    [SerializeField] private Slider slider;
 
     private void Start()
     {
@@ -50,5 +53,11 @@ public class UiManager : MonoBehaviour
     private void Update()
     {
         cookieAmountDisplay.text = _cookiesManager.cookies + "";
+        slider.value = _cookiesManager.cookies;
+
+        if (_cookiesManager.cookies ==1000000)
+        {
+            SceneManager.LoadScene("WinMenu");
+        }
     }
 }
