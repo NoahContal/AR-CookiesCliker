@@ -10,7 +10,6 @@ using UnityEngine.XR.ARSubsystems;
 public class Building
 {
     public GameObject Model;
-    public Quaternion Rotation;
     public int BasePrice;
     public int ActualPrice;
     public int CookiesPerTouch;
@@ -19,14 +18,13 @@ public class Building
     public string Name;
     public TextMeshProUGUI ButtonText;
     
-    public Building(GameObject model, int basePrice, int cookiePerTouch, int cookiePerSecond, Quaternion rotation)
+    public Building(GameObject model, int basePrice, int cookiePerTouch, int cookiePerSecond)
     {
         Model = model;
         BasePrice = basePrice;
         ActualPrice = basePrice;
         CookiesPerTouch = cookiePerTouch;
         CookiesPerSecond = cookiePerSecond;
-        Rotation = rotation;
     }
     
     public void Upgrade()
@@ -63,19 +61,19 @@ public class BuildingManager : MonoBehaviour
         _buildings = new Dictionary<string, Building>();
         _buildings.Add("Milk", new Building(
             Resources.Load<GameObject>("3D Models/Milk/MilkFBX"),
-            10, 1, 1, new Quaternion(-90f, 0, 0, 0)));
+            10, 1, 1));
         _buildings.Add("Blender", new Building(
             Resources.Load<GameObject>("3D Models/Blender/Mixer"),
-            100, 10, 2, new Quaternion()));
+            100, 10, 2));
         _buildings.Add("Oven", new Building(
             Resources.Load<GameObject>("3D Models/Oven/Stove"),
-            1000, 200, 3, new Quaternion()));
+            1000, 200, 3));
         _buildings.Add("Farm", new Building(
             Resources.Load<GameObject>("3D Models/Farm/Farm"),
-            25000, 5000, 5, new Quaternion()));
+            25000, 5000, 5));
         _buildings.Add("Factory", new Building(
             Resources.Load<GameObject>("3D Models/Factory/Factory"),
-            500000, 25000, 10, new Quaternion()));
+            500000, 25000, 10));
         _cookiesManager = FindObjectOfType<CookiesManager>();
         foreach (var key in _buildings.Keys)
         {
@@ -103,7 +101,7 @@ public class BuildingManager : MonoBehaviour
         _buildingToPlaceInfo = building;
         _isPlacing = true;
         UpdateUI();
-        _buildingToPlace = Instantiate(building.Model, Vector3.zero, building.Rotation, buildingParent);
+        _buildingToPlace = Instantiate(building.Model, Vector3.zero, Quaternion.identity, buildingParent);
     }
     
     public void CancelPlacement()
