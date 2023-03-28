@@ -11,25 +11,26 @@ public class Building
     public Quaternion Rotation;
     public int BasePrice;
     public int ActualPrice;
-    public int CookiePerTouch;
-    public float CookiePerSecond;
+    public int CookiesPerTouch;
+    public int CookiesPerSecond;
 
     public string Name;
     public TextMeshProUGUI ButtonText;
     
-    public Building(GameObject model, int basePrice, int cookiePerTouch, float cookiePerSecond, Quaternion rotation)
+    public Building(GameObject model, int basePrice, int cookiePerTouch, int cookiePerSecond, Quaternion rotation)
     {
         Model = model;
         BasePrice = basePrice;
         ActualPrice = basePrice;
-        CookiePerTouch = cookiePerTouch;
-        CookiePerSecond = cookiePerSecond;
+        CookiesPerTouch = cookiePerTouch;
+        CookiesPerSecond = cookiePerSecond;
         Rotation = rotation;
     }
     
     public void Upgrade()
     {
         ActualPrice = (int)(ActualPrice * 1.2f);
+        Display();
     }
     
     public void Display()
@@ -59,19 +60,19 @@ public class BuildingManager : MonoBehaviour
         _buildings = new Dictionary<string, Building>();
         _buildings.Add("Milk", new Building(
             Resources.Load<GameObject>("3D Models/Milk/MilkFBX"),
-            10, 1, 0.1f, new Quaternion(-90f, 0, 0, 0)));
+            10, 1, 1, new Quaternion(-90f, 0, 0, 0)));
         _buildings.Add("Blender", new Building(
             Resources.Load<GameObject>("3D Models/Blender/Mixer"),
-            100, 10, 0.5f, new Quaternion()));
+            100, 10, 2, new Quaternion()));
         _buildings.Add("Oven", new Building(
             Resources.Load<GameObject>("3D Models/Oven/Stove"),
-            1000, 200, 1f, new Quaternion()));
+            1000, 200, 3, new Quaternion()));
         _buildings.Add("Farm", new Building(
             Resources.Load<GameObject>("3D Models/Farm/Farm"),
-            25000, 5000, 3f, new Quaternion()));
+            25000, 5000, 5, new Quaternion()));
         _buildings.Add("Factory", new Building(
             Resources.Load<GameObject>("3D Models/Factory/Factory"),
-            500000, 25000, 10f, new Quaternion()));
+            500000, 25000, 10, new Quaternion()));
         _cookiesManager = FindObjectOfType<CookiesManager>();
         foreach (var key in _buildings.Keys)
         {
@@ -103,5 +104,16 @@ public class BuildingManager : MonoBehaviour
         _isPlacing = false;
         UpdateUI();
         Destroy(_buildingToPlace);
+    }
+    
+    public void PlaceBuilding(Building building)
+    {
+        _isPlacing = false;
+        UpdateUI();
+        _cookiesManager.cookies -= building.ActualPrice;
+        _cookiesManager.cookiesPerSecond += building.CookiesPerSecond;
+        _cookiesManager.cookiesPerTouch += building.CookiesPerTouch;
+        building.Upgrade();
+        _buildingToPlace = null;
     }
 }
