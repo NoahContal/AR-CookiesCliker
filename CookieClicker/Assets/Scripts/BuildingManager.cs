@@ -101,7 +101,7 @@ public class BuildingManager : MonoBehaviour
         _buildingToPlaceInfo = building;
         _isPlacing = true;
         UpdateUI();
-        _buildingToPlace = Instantiate(building.Model, Vector3.zero, Quaternion.identity, buildingParent);
+        _buildingToPlace = Instantiate(building.Model, buildingParent);
     }
     
     public void CancelPlacement()
