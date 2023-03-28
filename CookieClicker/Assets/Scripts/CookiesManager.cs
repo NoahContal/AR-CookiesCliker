@@ -17,6 +17,7 @@ public class CookiesManager : MonoBehaviour
 
     private void Start()
     {
+        InvokeRepeating(nameof(AddCookies), 1, 1);
         StartCoroutine(nameof(SpawnObject));
     }
     
@@ -35,7 +36,6 @@ public class CookiesManager : MonoBehaviour
                     Random.Range(-spawnRange.x, spawnRange.x),
                     Random.Range(-spawnRange.y, spawnRange.y),
                     Random.Range(-spawnRange.z, spawnRange.z));
-                Debug.Log(position);
                 var rotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
                 var spawnedObject = Instantiate(objectsToSpawn, position, rotation, cookieParent.transform);
                 cookieCount++;

@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Net.Mime;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 
@@ -52,6 +54,7 @@ public class BuildingManager : MonoBehaviour
     public GameObject cancelButton;
     
     private bool _isPlacing;
+    private Building _buildingToPlaceInfo;
     private GameObject _buildingToPlace;
     public Transform buildingParent;
     
@@ -76,7 +79,9 @@ public class BuildingManager : MonoBehaviour
         _cookiesManager = FindObjectOfType<CookiesManager>();
         foreach (var key in _buildings.Keys)
         {
-            _buildings[key].ButtonText = GameObject.Find(key).GetComponentInChildren<TextMeshProUGUI>();
+            var button = GameObject.Find(key);
+            _buildings[key].ButtonText = button.GetComponentInChildren<TextMeshProUGUI>();
+            button.GetComponent<Button>().onClick.AddListener(() => StartBuildingPlacing(key));
             _buildings[key].Name = key;
             _buildings[key].Display();
         }
@@ -90,10 +95,12 @@ public class BuildingManager : MonoBehaviour
         placeButton.SetActive(_isPlacing);
         cancelButton.SetActive(_isPlacing);
     }
-    
-    public void StartBuildingPlacing(string buildingName)
+
+    private void StartBuildingPlacing(string buildingName)
     {
+        if (_isPlacing) return;
         var building = _buildings[buildingName];
+        _buildingToPlaceInfo = building;
         _isPlacing = true;
         UpdateUI();
         _buildingToPlace = Instantiate(building.Model, Vector3.zero, building.Rotation, buildingParent);
@@ -106,14 +113,26 @@ public class BuildingManager : MonoBehaviour
         Destroy(_buildingToPlace);
     }
     
-    public void PlaceBuilding(Building building)
+    public void PlaceBuilding()
     {
         _isPlacing = false;
         UpdateUI();
+        var building = _buildingToPlaceInfo;
         _cookiesManager.cookies -= building.ActualPrice;
         _cookiesManager.cookiesPerSecond += building.CookiesPerSecond;
         _cookiesManager.cookiesPerTouch += building.CookiesPerTouch;
         building.Upgrade();
         _buildingToPlace = null;
+    }
+
+    private void Update()
+    {
+        if (!_isPlacing) return;
+        var screenCenter = Camera.current.ViewportToScreenPoint(new Vector3(0.5f, 0.5f));
+        var hits = new List<ARRaycastHit>();
+        raycastManager.Raycast(screenCenter, hits, trackableType);
+        if (hits.Count <= 0) return;
+        var hitPose = hits[0].pose;
+        _buildingToPlace.transform.position = hitPose.position;
     }
 }
