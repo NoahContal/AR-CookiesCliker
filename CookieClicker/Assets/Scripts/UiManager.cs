@@ -55,7 +55,7 @@ public class UiManager : MonoBehaviour
         cookieAmountDisplay.text = _cookiesManager.cookies + "";
         slider.value = _cookiesManager.cookies;
 
-        if (_cookiesManager.cookies == 1000000)
+        if (_cookiesManager.cookies >= 1000000)
         {
             SceneManager.LoadScene("WinMenu");
         }
