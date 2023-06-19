@@ -1,1 +1,1 @@
-# NTS_AR
+# AR-CookiesClicker
